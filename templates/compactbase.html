@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en">
+  <head>
+    <script type="text/javascript" src="{{ STATIC_URL }}/js/jquery-1.5.2.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}/js/crsf.js"></script>
+
+    {% if request.user.is_authenticated %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}/css/style.css" id="theme"/>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/base/jquery-ui.css" id="theme"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/i18n/jquery-ui-i18n.min.js"></script>
+    {% endif %}
+    {% block header %}{% endblock %}
+  </head>
+  <body>
+    
+    <div class="art-content">
+      {% block content %}
+      {% endblock %}
+    </div>
+
+</html>

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block header %}
+<!--<title>{{ object.name }} - Portal Terra Nossa</title>-->
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/album.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.fancybox-1.3.4.pack.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/fullpage.css" type="text/css" media="screen" />
+
+{% if request.user.is_authenticated %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/editphoto.js"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/base/jquery-ui.css" id="theme">
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.fileupload.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.fileupload-ui.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.fileupload-ui.css">
+{% endif %}
+
+{% endblock %}
+
+
+{% block content %}
+<h2>{{ object.name }}</h2>
+<table>
+{% if object.local %}
+<tr>
+  <td><label>Local:</label></td>
+  <td>{{ object.local }}</td>
+</tr>
+{% endif %}
+<tr>
+  <td><label>Data:</label></td>
+  <td>{{ object.date }}</td>
+</tr>
+</table>
+{% if object.desc %}
+<p>
+  {{ object.desc }}
+</p>
+{% endif %}
+{% if request.user.is_authenticated %}
+<table id="files"></table>
+<form id="file_upload" action="/albuns/{{ object.id }}/action/" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <input type="hidden" name="action" value="send_image"/>
+    <input type="file" name="file" multiple>
+    <button>Adicionar Fotos</button>
+    <div class="js">Adicionar Fotos</div>
+</form>
+
+<div id="editwindow">
+  <h3>Editar Imagem</h3>
+  <img class="thumbnail" src="/media/img/nophoto.jpg"/>
+  <form method="POST" action="/albuns/{{ object.id }}/action/">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="edit_image"/>
+    <input type="hidden" name="photo_id" value="0"/>
+    <label>Nome:</label>
+    <input name="name" type="text"/>
+    <input type="submit" value="Salvar">
+  </form>
+</div>
+{% endif %}
+
+<div id="album">
+  {% for photo in object.get_all_photos %}
+  <div class="photo" rel="{{ photo.id }}">
+    <a class="photo" title="{{ photo.name }}" href="{{ photo.image.url }}" rel="group"><img src="{{ photo.image.thumbnail.url }}"/></a>
+    {% if request.user.is_authenticated %}
+    <p>
+      <a class="edit" href="#">Editar</a>
+      <a class="delete" href="#">Apagar</a>
+    </p>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+
+
+
+{% endblock %}

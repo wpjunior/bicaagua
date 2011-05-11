@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block header %}
+{% endblock %}
+{% block content %}
+<h2>Fale Conosco</h2>
+{% if erro %}
+<p>
+  <span style="color: red;"><b>Atenção:</b> {{ erro }}</span>
+</p>
+{% endif %}
+<form method="POST" action=".">
+{% csrf_token %}
+<table>
+{{ form.as_table }}
+</table>
+<input type="button" value="Voltar" onclick="history.go(-1)" />
+<input type="submit" value="Enviar">
+</form>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block header %}
+<script type="text/javascript" src="/media/js/jquery.ulslide.js"></script>
+<script type="text/javascript" src="/media/js/index.js"></script>
+{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar">
+		{% if albums %}
+<h3>Ultimos Albuns</h3>
+	<ul class="mini-slider">
+          {% for album in albums %}
+	  <li class="li-photo">
+	    <a href="{{ album.get_absolute_url }}">
+	      <img src="{{ album.get_first_photo_thumbnail }}" alt="{{ album.name }}"/> 
+	    </a>
+	    <div class="caption nohidden">
+	      <b>{{ album.name }}</b>
+	    </div> 
+	  </li>
+	  {% endfor %}
+	</ul>
+	{% endif %}
+</div>
+
+{% endblock %}
+
+{% block content %}
+<div class="art-Post">
+  <div class="art-Post-body">
+    <div class="art-Post-inner">
+      <h2 class="art-PostHeaderIcon-wrapper">
+        <span class="art-PostHeader">Bem Vindo</span>
+	<small>{% now "d \de F \de Y, h:i:s" %}</small>
+      </h2>
+      <div class="art-PostContent">
+	<p>Escrever Resumo da História da Banda</p>
+	{% if notices %}
+	<ul class="slider">
+          {% for notice in notices %}
+	  <li class="li-photo"> 
+	    <img src="{{ notice.image.url }}" alt="{{ notice.name }}"/> 
+		<div class="notice-caption">
+		  <a href="{{notice.get_absolute_url }}"><h3>{{ notice.name }}</h3></a>
+		  <p><small>Postado em {{ notice.date }} por {% firstof notice.user.get_full_name notice.user.username %}
+		      {% if request.user.is_authenticated %}
+		      <a href="/news/edit/{{ notice.id }}/">Editar</a>
+		      <a href="/news/delete/{{ notice.id }}/">Apagar</a>
+		      {% endif %}
+		  </small></p>
+		</div> 
+	  </li>
+	  {% endfor %}
+	</ul>
+	{% endif %}
+      </div>
+    </div>
+    
+  </div>
+</div>
+{% endblock %}

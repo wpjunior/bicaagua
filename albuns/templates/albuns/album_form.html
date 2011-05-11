@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block header %}
+{% endblock %}
+{% block content %}
+<h3>{% if object %}Editar{% else %}Adicionar{% endif %} Album</h3>
+<form method="POST" action=".">
+{% csrf_token %}
+<table>
+{{ form.as_table }}
+</table>
+<input class="to_button" type="submit" value="Salvar">
+</form>
+<script>
+$(document).ready(function(e) {
+$.datepicker.setDefaults($.datepicker.regional['pt-BR']);
+$('input[name="date"]').datepicker();
+});
+</script>
+{% endblock %}

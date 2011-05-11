@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block header %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/fullpage.css" type="text/css" media="screen" />
+{% endblock %}
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<a class="to_button" href="/news/add/">Adicionar Notícia</a>
+{% endif %}
+
+<div id="noticelist">
+{% for object in object_list %}
+<div class="notice" rel="{{ object.id }}">
+  <h2>{{ object.name }}</h2>
+  <p><small>Postado em {{ object.date }} por {% firstof object.user.get_full_name object.user.username %}
+    {% if request.user.is_authenticated %}
+    <a href="/news/edit/{{ object.id }}/">Editar</a>
+    <a href="/news/delete/{{ object.id }}/">Apagar</a>
+    {% endif %}
+  </small></p>
+  <img src="{{ object.image.url }}"/>
+  {{ object.text|safe }}
+</div>
+{% endfor %}
+</div>
+{% if is_paginated %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">Mais recentes</a>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Mais antigas</a>
+        {% endif %}
+    </span>
+</div>
+{% endif %}
+{% endblock %}

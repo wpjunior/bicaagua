@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-BR" lang="pt-BR">
+<head>
+
+<meta name="Description" content="Information architecture, Web Design, Web Standards." />
+<meta name="Keywords" content="your, keywords" />
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="Distribution" content="Global" />
+<meta name="Author" content="Wilson Pinto Júnior" />
+<meta name="Robots" content="index,follow" />
+<title>Corporação Musical 13 de Maio</title>
+
+<link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css" />
+<script type="text/javascript" src="/static/js/jquery.min.js"></script> 
+
+    <script type="text/javascript" src="{{ STATIC_URL }}/js/crsf.js"></script>
+
+    {% if request.user.is_authenticated %}
+    <script type="text/javascript" src="{{ STATIC_URL }}/js/script.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/base/jquery-ui.css" id="theme"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/i18n/jquery-ui-i18n.min.js"></script>
+    {% endif %}
+{% block header %} {% endblock %}
+</head>
+
+<body>
+<!-- wrap starts here -->
+<div id="wrap">
+		
+		<!--header -->
+		<div id="header">			
+				
+			<h1 id="logo-text"><a href="/">Corporação Musical 13 de Maio</a></h1>		
+			<p id="slogan">Escrever o slogan aqui</p>			
+						
+		</div>
+		
+		<!-- menu -->	
+		<div  id="menu">
+			<ul>
+				<li id="current"><a href="/">Início</a></li>
+                                <li><a href="/news/">Notícias</a></li>
+				<li><a href="/historia/">História</a></li>
+                                <li><a href="http://www.corumbatur.com.br">Corumbá de Goiás</a></li>
+				<li><a href="/albuns/">Fotos</a></li>
+				<li><a href="/videos/">Vídeos</a></li>
+				<li><a href="/faleconosco/">Fale Conosco</a></li>
+				<li class="last"><a href="/about/">Sobre o Portal</a></li>		
+			</ul>
+		</div>					
+			
+		<!-- content-wrap starts here -->
+		<div id="content-wrap">
+			{% block sidebar %}	
+			
+			{% endblock %}	
+			<div id="main">
+				{% block content %}
+                                {% endblock %}
+
+			</div>
+		
+		<!-- content-wrap ends here -->	
+		</div>
+					
+		<!--footer starts here-->
+		<div id="footer">
+			
+			<p>
+			&copy; 2011 <strong>Corporação Músical 13 de Maio</strong> | 
+			Feito por: <a href="mailto:wilsonpjunior@gmail.com">Wilson Júnior</a>|
+                        <a href="/auth/login/">Administração</a>
+   		</p>
+				
+		</div>	
+
+<!-- wrap ends here -->
+</div>
+
+</body>
+</html>

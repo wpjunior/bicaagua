@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Remover Notícia</h3>
+<form method="POST" action=".">
+{% csrf_token %}
+<h4>{{ object.name }}</h4>
+<p>Postada em {{ object.date }} por {% firstof object.user.get_full_name object.user.username %}</p>
+<input class="to_button" type="button" value="Voltar" onclick="history.go(-1)" />
+<input class="to_button" type="submit" value="Sim tenho certeza" />
+</form>
+{% endblock %}

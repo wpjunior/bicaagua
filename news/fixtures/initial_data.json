@@ -1,0 +1,23 @@
+[
+    {
+	"pk": 1,
+	"model": "news.category",
+	"fields": {
+	    "name": "Opnião"
+        }
+    },
+    {
+	"pk": 2,
+	"model": "news.category",
+	"fields": {
+	    "name": "Município"
+        }
+    },
+    {
+	"pk": 3,
+	"model": "news.category",
+	"fields": {
+	    "name": "Estado"
+        }
+    }
+]
