@@ -71,7 +71,13 @@
 			<p>
 			&copy; 2011 <strong>Corporação Músical 13 de Maio</strong> | 
 			Feito por: <a href="mailto:wilsonpjunior@gmail.com">Wilson Júnior</a>|
-                        <a href="/auth/login/">Administração</a>
+				{% if request.user.is_authenticated %}
+		<span>Bem Vindo {{ request.user.username }}</span> -
+		<a href="/auth/logout/">Sair</a>
+		{% else %}
+		<a href="/auth/login/">Administra��o</a>
+		{% endif %}
+                        <a href="http://mail.banda13demaio.com.br/">E-Mail</a>
    		</p>
 				
 		</div>	
