@@ -145,7 +145,13 @@ LOGGING = {
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/auth/login'
 LOGOUT_URL = '/auth/logout'
-FROM_EMAIL = 'wilson@gmail.com'
-TO_EMAIL = 'wilson@gmail.com'
 CAPTCHA_LETTER_ROTATION = None
 CAPTCHA_NOISE_FUNCTION = None
+
+FROM_EMAIL = 'notifydjango@gmail.com'
+TO_EMAIL = 'diretoria@banda13demaio.com.br'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = FROM_EMAIL
+EMAIL_HOST_PASSWORD = 'django123'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

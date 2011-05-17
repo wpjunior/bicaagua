@@ -1,5 +1,5 @@
 # Create your views here.
-from news.models import Notice
+from news.models import Notice, Category
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
@@ -18,22 +18,32 @@ class NoticeList(ContextHackMixin, ListView):
     paginate_by = 5
 
     def get_queryset(self):
+        cat = self.request.GET.get('type', None)
+        
+        if cat:
+            category = get_object_or_404(Category, id=cat)
+            return Notice.objects.filter(category=category)
 
         return Notice.objects.all()
 
 class NoticeAdd(ContextHackMixin, CreateView):
     model = Notice
     form_class = NoticeForm
+    success_url = "/news/"
 
     def form_valid(self, form):
-        obj = form.save(commit=False)
-        obj.user = self.request.user
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
 
-        return super(NoticeAdd, self).form_valid(obj)
+        return super(NoticeAdd, self).form_valid(self.object)
+
+    def get_success_url(self):
+        return self.success_url
 
 class NoticeUpdate(ContextHackMixin, UpdateView):
     model = Notice
     form_class = NoticeForm
+    success_url = "/news/"
 
 class NoticeDelete(ContextHackMixin, DeleteView):
     model = Notice

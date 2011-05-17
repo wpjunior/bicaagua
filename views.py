@@ -8,7 +8,7 @@ from albuns.models import Album
 from b13.captcha.fields import CaptchaField
 from django.core.mail import send_mail, BadHeaderError
 from django import forms
-from b13.settings import FROM_EMAIL
+from b13.settings import FROM_EMAIL, TO_EMAIL
 from django.template import Context, loader
 from django.http import HttpResponse, HttpResponseRedirect
 
