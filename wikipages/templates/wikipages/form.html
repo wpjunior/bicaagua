@@ -2,9 +2,14 @@
 {% block header %}
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/base/jquery-ui.css" id="theme">
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
-<script src="{{ STATIC_URL }}js/jquery.fileupload.js"></script>
-<script src="{{ STATIC_URL }}js/jquery.fileupload-ui.js"></script>
-<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.fileupload-ui.css">
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/plupload.js"></script> 
+<script type="text/javascript" src="{{ STATIC_URL }}js/plupload.gears.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/plupload.silverlight.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/plupload.flash.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/plupload.html4.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/plupload.html5.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/plupload.pt-br.js"></script>
 
 <link rel="stylesheet" href="{{ STATIC_URL }}/css/wikiform.css" type="text/css" media="screen" />
 <script type="text/javascript" src="{{ STATIC_URL }}js/tiny_mce/jquery.tinymce.js"></script>
@@ -23,31 +28,70 @@
 </form>
 {% endblock %}
 {% block sidebar2 %}
-<table id="files"></table>
-<form id="file_upload" action="" method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
-  <input type="hidden" name="action" value="send_image"/>
-    <input type="file" name="file" multiple>
-    <button>Inserir Imagem</button>
-    <div class="js">Inserir Imagem</div>
-</form>
+<h3>Adicionar Imagens</h3>
+<div id="container">
+  <div id="filelist"></div>
+  <br />
+  <a class="to_button" id="pickfiles" href="#">Selecionar Fotos</a>
+  <a class="to_button" id="uploadfiles" href="#">Enviar Fotos</a>
+</div>
 <script>
 /*global $ */
 $(function () {
-    $('#file_upload').fileUploadUI({
-        uploadTable: $('#files'),
-        buildUploadRow: function (files, index) {
-            return $('<tr><td>' + files[index].name + '<\/td>' +
-                    '<td class="file_upload_progress"><div><\/div><\/td>' +
-                    '<td class="file_upload_cancel">' +
-                    '<button class="ui-state-default ui-corner-all" title="Cancel">' +
-                    '<span class="ui-icon ui-icon-cancel">Cancel<\/span>' +
-                    '<\/button><\/td><\/tr>');
-        },
-        buildDownloadRow: function (file) {
-	    $('textarea').tinymce().execCommand('mceInsertContent',false,'<img src="'+file.url+'"/>');
-        }
-    });
+    var uploader = new plupload.Uploader({
+		runtimes : 'gears,html5,flash,silverlight,browserplus',
+		browse_button : 'pickfiles',
+		container : 'container',
+		max_file_size : '10mb',
+		url : '.',
+		flash_swf_url : '/static/js/plupload.flash.swf',
+		silverlight_xap_url : '/static/js/plupload.silverlight.xap',
+                multipart_params: {'action': 'send_image'},
+                headers : {'X-Requested-With' : 'XMLHttpRequest', 'X-CSRFToken' : '{{ csrf_token }}'},
+		filters : [
+			{title : "Arquivos de Fotos", extensions : "jpg,jpeg,gif,png"},
+		],
+		resize : {width : 800, height : 600, quality : 90}
+	});
+
+	$('#uploadfiles').click(function(e) {
+		uploader.start();
+		e.preventDefault();
+	});
+
+	uploader.init();
+
+	uploader.bind('FilesAdded', function(up, files) {
+		$.each(files, function(i, file) {
+			$('#filelist').append(
+				'<div id="' + file.id + '">' +
+				file.name + ' (' + plupload.formatSize(file.size) + ') <b></b>' +
+			'</div>');
+		});
+
+		up.refresh(); // Reposition Flash/Silverlight
+	});
+
+	uploader.bind('UploadProgress', function(up, file) {
+		$('#' + file.id + " b").html(file.percent + "%");
+	});
+
+	uploader.bind('Error', function(up, err) {
+		$('#filelist').append("<div>Error: " + err.code +
+			", Message: " + err.message +
+			(err.file ? ", File: " + err.file.name : "") +
+			"</div>"
+		);
+
+		up.refresh(); // Reposition Flash/Silverlight
+	});
+
+	uploader.bind('FileUploaded', function(up, file, response) {
+                if (response.status !== 200) return;
+                var data = $.parseJSON(response.response);
+                $('textarea').tinymce().execCommand('mceInsertContent',false,'<img src="'+data.url+'"/>');
+		$('#' + file.id + " b").html("100%");
+	});
 });
 </script> 
 <!-- OCULTO -->
