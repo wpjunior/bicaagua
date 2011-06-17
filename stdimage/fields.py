@@ -5,6 +5,32 @@ from django.core.files.storage import FileSystemStorage
 from widgets import DelAdminFileWidget
 from forms import StdImageFormField
 import os, shutil
+from PIL import Image, ImageOps
+from b13.settings import MEDIA_ROOT
+
+def watermark(im, mark, position):
+    """Adds a watermark to an image."""
+    if im.mode != 'RGBA':
+        im = im.convert('RGBA')
+    # create a transparent layer the size of the image and draw the
+    # watermark in that layer.
+    layer = Image.new('RGBA', im.size, (0,0,0,0))
+    if position == 'tile':
+        for y in range(0, im.size[1], mark.size[1]):
+            for x in range(0, im.size[0], mark.size[0]):
+                layer.paste(mark, (x, y))
+    elif position == 'scale':
+        # scale, but preserve the aspect ratio
+        ratio = min(
+            float(im.size[0]) / mark.size[0], float(im.size[1]) / mark.size[1])
+        w = int(mark.size[0] * ratio)
+        h = int(mark.size[1] * ratio)
+        mark = mark.resize((w, h))
+        layer.paste(mark, ((im.size[0] - w) / 2, (im.size[1] - h) / 2))
+    else:
+        layer.paste(mark, position)
+    # composite the watermark with the layer
+    return Image.composite(layer, im, layer)
 
 class ThumbnailField:
     '''
@@ -68,13 +94,18 @@ class StdImageField(ImageField):
                     size, but without cropping, so it could be smaller on width or height
         '''
         WIDTH, HEIGHT = 0, 1
-        from PIL import Image, ImageOps
+        
         img = Image.open(filename)
+        mark = Image.open(MEDIA_ROOT + '/img/overlay.png')
+        img = watermark(img, mark, (10, 10))
+        img.save(filename)
+
         if img.size[WIDTH] > size['width'] or img.size[HEIGHT] > size['height']:
             if size['force']:
                 img = ImageOps.fit(img, (size['width'], size['height']), Image.ANTIALIAS)
             else:
                 img.thumbnail((size['width'], size['height']), Image.ANTIALIAS)
+            
             try:
                 img.save(filename, optimize=1)
             except IOError:
