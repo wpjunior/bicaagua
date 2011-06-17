@@ -149,7 +149,7 @@ CAPTCHA_LETTER_ROTATION = None
 CAPTCHA_NOISE_FUNCTION = None
 
 FROM_EMAIL = 'notifydjango@gmail.com'
-TO_EMAIL = 'diretoria@banda13demaio.com.br'
+TO_EMAIL = 'corp.mus.13demaio@hotmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = FROM_EMAIL
 EMAIL_HOST_PASSWORD = 'django123'
