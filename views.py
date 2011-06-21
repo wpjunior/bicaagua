@@ -12,6 +12,10 @@ from b13.settings import FROM_EMAIL, TO_EMAIL
 from django.template import Context, loader
 from django.http import HttpResponse, HttpResponseRedirect
 
+def index(request):
+    return render_to_response("index.html", locals(),
+                              context_instance=RequestContext(request))
+
 def home(request):
     notices = Notice.objects.all()[:5]
     albums = Album.objects.all()[:5]
