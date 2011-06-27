@@ -142,7 +142,7 @@ LOGGING = {
     }
 }
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/home/'
 LOGIN_URL = '/auth/login'
 LOGOUT_URL = '/auth/logout'
 CAPTCHA_LETTER_ROTATION = None
