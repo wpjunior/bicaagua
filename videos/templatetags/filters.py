@@ -21,7 +21,7 @@ def youtube(url):
     match = regex.match(url)
     if not match: return ""
     video_id = match.group('id')
-    return mark_safe("""<iframe title="YouTube video player" width="240" height="195" src="http://www.youtube.com/embed/%s" frameborder="0" allowfullscreen></iframe>""" % video_id)
+    return mark_safe("""<iframe title="YouTube video player" width="320" height="240" src="http://www.youtube.com/embed/%s" frameborder="0" allowfullscreen></iframe>""" % video_id)
 youtube.is_safe = True # Don't escape HTML
 
 @register.filter

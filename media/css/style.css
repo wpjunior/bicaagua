@@ -420,7 +420,7 @@ div.album p.title {margin: 3px; text-align: center; font-weight: bold;}
 div#editwindow {display: none;}
 a.iframe {float: left;}
 #videolist, #albumlist {margin-top: 10px;}
-div.video {display: inline-block; width: 400px; height: 100px; float: left;}
+div.video {display: inline-block; width: 400px; height: 250px; float: left;}
 div.desc {display: inline-block; margin: 0px; margin-left: 10px;}
 div.desc h3 {margin: 0px;}
 div.video p.tools {display: none; margin: 0px; padding: 0px}

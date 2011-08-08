@@ -18,10 +18,10 @@
   {% for object in object_list %}
   <div class="video" rel="{{ object.id }}">
     <a class="iframe" href="{{ object.link|youtubeurl }}">
-      {{ object.link|youtubepreview }}
+      {{ object.link|youtube }}
     </a>
     <div class="desc">
-      <h3>{{ object.name }}</h3>
+      <h3><a href="{{ object.link }}">{{ object.name }}</a></h3>
       <p>
 	{{ object.desc }}
       </p>
