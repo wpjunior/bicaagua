@@ -100,10 +100,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'b13.wikipages.middleware.WikipageFallbackMiddleware',
+    'bicaagua.wikipages.middleware.WikipageFallbackMiddleware',
 )
 
-ROOT_URLCONF = 'b13.urls'
+ROOT_URLCONF = 'bicaagua.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, "templates"),
@@ -117,11 +117,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'b13.wikipages',
-    'b13.albuns',
-    'b13.videos',
-    'b13.news',
-    'b13.captcha',
+    'bicaagua.wikipages',
+    'bicaagua.albuns',
+    'bicaagua.videos',
+    'bicaagua.news',
+    'bicaagua.captcha',
 )
 
 LOGGING = {

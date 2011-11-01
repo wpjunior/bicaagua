@@ -9,7 +9,7 @@
 <meta name="Distribution" content="Global" />
 <meta name="Author" content="Wilson Pinto Júnior" />
 <meta name="Robots" content="index,follow" />
-<title>Corporação Musical 13 de Maio</title>
+<title>.: Pousada Bica D'Agua :.</title>
 
 <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css" />
 <script type="text/javascript" src="/static/js/jquery.min.js"></script> 
@@ -32,8 +32,8 @@
 		<!--header -->
 		<div id="header">			
 				
-			<h1 id="logo-text"><a href="/home/">Corporação Musical "13 de Maio"</a></h1>		
-			<p id="slogan">Fundada em 1890 - <a href="http://www.corumbatur.com.br" style="color: white;">Corumbá de Goiás</a></p>
+			<h1 id="logo-text"><a href="/home/">Pousada Bica D'agua</a></h1>		
+			<p id="slogan"><a href="http://www.corumbatur.com.br" style="color: white;">Corumbá de Goiás</a></p>
 						
 		</div>
 		
@@ -42,12 +42,11 @@
 			<ul>
 				<li id="current"><a href="/home/">Início</a></li>
                                 <li><a href="/news/">Notícias</a></li>
-				<li><a href="/historia/">História</a></li>
 				<li><a href="/agenda/">Agenda</a></li>
 				<li><a href="/albuns/">Fotos</a></li>
 				<li><a href="/videos/">Vídeos</a></li>
 				<li><a href="/faleconosco/">Fale Conosco</a></li>
-				<li class="last"><a href="/diretoria/">Diretoria</a></li>		
+				<li class="last"><a href="/hospedagem/">Hospedagem</a></li>		
 			</ul>
 		</div>					
 			
@@ -70,8 +69,7 @@
                   {% block extrafooter %}
                   {% endblock %}
 		  <p>
-		    &copy; 2011 <strong>Corporação Musical 13 de Maio</strong> | 
-		    Feito por: <a href="mailto:wilsonpjunior@gmail.com">Wilson Júnior</a>|
+		    &copy; 2011~2012 Pousada Bica D'agua</strong> | 
 		    {% if request.user.is_authenticated %}
 		    <span>Bem Vindo {{ request.user.username }}</span> -
 		    <a href="/auth/logout/">Sair</a>
@@ -80,17 +78,6 @@
 		    {% endif %}
                     <a href="http://mail.banda13demaio.com.br/">E-Mail</a>
    		  </p>
-          <script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-24856823-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
 
                 <!-- wrap ends here -->
 </div>

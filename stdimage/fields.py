@@ -6,7 +6,7 @@ from widgets import DelAdminFileWidget
 from forms import StdImageFormField
 import os, shutil
 from PIL import Image, ImageOps
-from b13.settings import MEDIA_ROOT
+from bicaagua.settings import MEDIA_ROOT
 
 def watermark(im, mark, position):
     """Adds a watermark to an image."""
