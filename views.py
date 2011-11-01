@@ -18,7 +18,6 @@ def index(request):
 
 def home(request):
     notices = Notice.objects.all()[:5]
-    albums = Album.objects.all()[:5]
 
     return render_to_response("home.html", locals(),
                               context_instance=RequestContext(request))

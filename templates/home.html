@@ -4,27 +4,6 @@
 <script type="text/javascript" src="/media/js/index.js"></script>
 {% endblock %}
 
-{% block sidebar %}
-<div id="sidebar">
-		{% if albums %}
-<h3>Últimos Albuns</h3>
-	<ul class="mini-slider">
-          {% for album in albums %}
-	  <li class="li-photo">
-	    <a href="{{ album.get_absolute_url }}">
-	      <img src="{{ album.get_first_photo_thumbnail }}" alt="{{ album.name }}"/> 
-	    </a>
-	    <div class="caption nohidden">
-	      <b>{{ album.name }}</b>
-	    </div> 
-	  </li>
-	  {% endfor %}
-	</ul>
-	{% endif %}
-</div>
-
-{% endblock %}
-
 {% block content %}
 <div class="art-Post">
   <div class="art-Post-body">

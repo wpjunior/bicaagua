@@ -1,18 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-BR" lang="pt-BR">
-<head>
+  <head>
 
-<meta name="Description" content="Information architecture, Web Design, Web Standards." />
-<meta name="Keywords" content="your, keywords" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="Distribution" content="Global" />
-<meta name="Author" content="Wilson Pinto Júnior" />
-<meta name="Robots" content="index,follow" />
-<title>.: Pousada Bica D'Agua :.</title>
+    <meta name="Description" content="Information architecture, Web Design, Web Standards." />
+    <meta name="Keywords" content="your, keywords" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="Distribution" content="Global" />
+    <meta name="Author" content="Wilson Pinto Júnior" />
+    <meta name="Robots" content="index,follow" />
+    <title>.: Pousada Bica D'Agua :.</title>
 
-<link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css" />
-<script type="text/javascript" src="/static/js/jquery.min.js"></script> 
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css" />
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script> 
 
     <script type="text/javascript" src="{{ STATIC_URL }}/js/crsf.js"></script>
 
@@ -22,65 +22,53 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/i18n/jquery-ui-i18n.min.js"></script>
     {% endif %}
-{% block header %} {% endblock %}
-</head>
+    {% block header %} {% endblock %}
+  </head>
 
-<body>
-<!-- wrap starts here -->
-<div id="wrap">
-		
-		<!--header -->
-		<div id="header">			
-				
-			<h1 id="logo-text"><a href="/home/">Pousada Bica D'agua</a></h1>		
-			<p id="slogan"><a href="http://www.corumbatur.com.br" style="color: white;">Corumbá de Goiás</a></p>
-						
-		</div>
-		
-		<!-- menu -->	
-		<div  id="menu">
-			<ul>
-				<li id="current"><a href="/home/">Início</a></li>
-                                <li><a href="/news/">Notícias</a></li>
-				<li><a href="/agenda/">Agenda</a></li>
-				<li><a href="/albuns/">Fotos</a></li>
-				<li><a href="/videos/">Vídeos</a></li>
-				<li><a href="/faleconosco/">Fale Conosco</a></li>
-				<li class="last"><a href="/hospedagem/">Hospedagem</a></li>		
-			</ul>
-		</div>					
-			
-		<!-- content-wrap starts here -->
-		<div id="content-wrap">
-			{% block sidebar %}	
-			
-			{% endblock %}	
-			<div id="main">
-				{% block content %}
-                                {% endblock %}
+  <body>
+    <div id="outer">
+      <div id="wrapper">
+	<div id="nav">
+	  <div id="head"></div>
+	  <div id="head-pip"></div>
+	  <ul>
+	    <li id="m1"><a href="/home/">Início</a></li>
+	    <li id="m2"><a href="/agenda/">Agenda</a></li>
+	    <li id="m3"><a href="/albuns/">Albuns</a></li>
+	    <li id="m4"><a href="/videos/">Vídeos</a></li>
+	    <li id="m5"><a href="/faleconosco/">Fale conosco</a></li>
+	    <li id="m6"><a href="/hospedagem">Hospedagem</a></li>
+	  </ul>
+	  <div id="search">
+            	
+	  </div>
+	</div>
+	<div id="body">
+	  <div id="body-inner">
+	    {% block content %}
+            {% endblock %}
+	  </div>
+	  <div id="copyright">
+            {% block extrafooter %}
+            {% endblock %}
+	    <p>
+	      
+	      <div id="copyright-left">
+                &copy; 2011~2012 Pousada Bica D'agua</strong> | 
+	      {% if request.user.is_authenticated %}
+	      <span>Bem Vindo {{ request.user.username }}</span> -
+	      <a href="/auth/logout/">Sair</a>
+	      {% else %}
+	      <a href="/auth/login/">Administração</a>
+	      {% endif %}
+              <a href="http://mail.banda13demaio.com.br/">E-Mail</a>
+   	    </p>
 
-			</div>
-		        
-		        <!-- content-wrap ends here -->	
-		</div>
-		
-		<!--footer starts here-->
-		<div id="footer">
-                  {% block extrafooter %}
-                  {% endblock %}
-		  <p>
-		    &copy; 2011~2012 Pousada Bica D'agua</strong> | 
-		    {% if request.user.is_authenticated %}
-		    <span>Bem Vindo {{ request.user.username }}</span> -
-		    <a href="/auth/logout/">Sair</a>
-		    {% else %}
-		    <a href="/auth/login/">Administração</a>
-		    {% endif %}
-                    <a href="http://mail.banda13demaio.com.br/">E-Mail</a>
-   		  </p>
-
-                <!-- wrap ends here -->
-</div>
-
+	  </div>
+	</div>
+	<div class="clear">&nbsp;</div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
